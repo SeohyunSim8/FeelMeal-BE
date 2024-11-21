@@ -16,24 +16,16 @@ public enum ResponseCode {
     METHOD_NOT_ALLOWED(HttpStatus.METHOD_NOT_ALLOWED, "허용되지 않은 메서드입니다."),
     INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "내부 서버 오류입니다."),
 
+    // AUTH
+    EXIST_MEMBER(HttpStatus.CONFLICT, "이미 가입된 유저입니다."),
+    NOT_FOUND_MEMBER(HttpStatus.NOT_FOUND, "존재하지 않는 유저입니다."),
+    INVALID_PASSWORD(HttpStatus.BAD_REQUEST, "비밀번호가 일치하지 않습니다."),
+
     //THEME
     NOT_FOUND_THEME(HttpStatus.NOT_FOUND, "존재하지 않는 테마입니다."),
     INVALID_THEME_LIKE(HttpStatus.BAD_REQUEST, "좋아요를 누르지 않은 테마입니다."),
     EXIST_THEME_LIKE(HttpStatus.CONFLICT, "이미 좋아요를 한 테마입니다."),
 
-    CITY_NOT_FOUND(HttpStatus.NOT_FOUND, "시/도를 찾을 수 없습니다."),
-    STATION_NOT_FOUND(HttpStatus.NOT_FOUND, "역을 찾을 수 없습니다."),
-    POINT_NOT_FOUND(HttpStatus.NOT_FOUND, "방탈출 카페 지점을 찾을 수 없습니다."),
-    LOCATION_CATEGORY_NOT_FOUND(HttpStatus.NOT_FOUND, "지역 카테고리를 찾을 수 없습니다. 지정된 카테고리 (City: 시/도, Station: 지하철 역, Restaurant: 지점) 중에서 입력해주세요."),
-    PROFICIENCY_NOT_FOUND(HttpStatus.NOT_FOUND, "숙련도를 찾을 수 없습니다."),
-    GENRE_NOT_FOUND(HttpStatus.NOT_FOUND, "숙련도를 찾을 수 없습니다."),
-
-    // AUTH
-    EMPTY_JWT(HttpStatus.BAD_REQUEST, "JWT를 입력해주세요."),
-    INVALID_JWT(HttpStatus.UNAUTHORIZED, "유효하지 않은 JWT입니다."),
-
-    EXIST_USER(HttpStatus.CONFLICT, "이미 가입된 유저입니다."),
-    INVALID_PASSWORD(HttpStatus.BAD_REQUEST, "비밀번호가 일치하지 않습니다."),
 
     // MEM
     NOT_FOUND_USER(HttpStatus.NOT_FOUND, "존재하지 않는 유저입니다."),

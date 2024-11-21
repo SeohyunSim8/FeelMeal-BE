@@ -1,5 +1,8 @@
 package feelmeal.global.config;
 
+import feelmeal.domain.member.repository.MemberRepository;
+import feelmeal.global.common.jwt.JwtFilter;
+import feelmeal.global.common.jwt.JwtService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,11 +13,8 @@ import org.springframework.security.config.annotation.web.configurers.HeadersCon
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.cors.CorsConfigurationSource;
-import feelmeal.domain.member.repository.MemberRepository;
-import feelmeal.global.common.jwt.JwtFilter;
-import feelmeal.global.common.jwt.JwtService;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.List;
 

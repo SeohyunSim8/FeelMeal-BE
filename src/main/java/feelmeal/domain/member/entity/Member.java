@@ -1,10 +1,12 @@
 package feelmeal.domain.member.entity;
 
-import jakarta.persistence.*;
-import lombok.*;
-import feelmeal.api.member.service.dto.PatchMemberInfoServiceDto;
 import feelmeal.global.common.entity.BaseEntity;
 import feelmeal.global.common.entity.Constant;
+import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Getter

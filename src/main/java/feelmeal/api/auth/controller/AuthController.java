@@ -1,5 +1,12 @@
 package feelmeal.api.auth.controller;
 
+import feelmeal.api.auth.controller.dto.request.PostLoginRequest;
+import feelmeal.api.auth.controller.dto.request.PostSignUpRequest;
+import feelmeal.api.auth.controller.dto.response.PostLoginResponse;
+import feelmeal.api.auth.controller.dto.response.PostSignUpResponse;
+import feelmeal.api.auth.service.AuthService;
+import feelmeal.global.annotation.NonAuth;
+import feelmeal.global.common.exception.ErrorResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -13,13 +20,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import feelmeal.api.auth.controller.dto.request.PostLoginRequest;
-import feelmeal.api.auth.controller.dto.request.PostIdRequest;
-import feelmeal.api.auth.controller.dto.request.PostSignUpRequest;
-import feelmeal.api.auth.controller.dto.response.PostLoginResponse;
-import feelmeal.api.auth.service.AuthService;
-import feelmeal.global.annotation.NonAuth;
-import feelmeal.global.common.exception.ErrorResponse;
 
 import static feelmeal.global.common.exception.ResponseCode.SUCCESS;
 
@@ -40,11 +40,11 @@ public class AuthController {
             @ApiResponse(responseCode = "409", description = "이미 가입된 유저입니다.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class)))
     })
     @PostMapping("/sign-up")
-    public ResponseEntity<String> signUp(
+    public ResponseEntity<PostSignUpResponse> signUp(
             @Valid @RequestBody PostSignUpRequest request
     ) {
-        authService.signUp(request.toServiceDto());
-        return new ResponseEntity<>(SUCCESS.getMessage(), SUCCESS.getStatus());
+        PostSignUpResponse response = authService.signUp(request.toServiceDto());
+        return new ResponseEntity<>(response, SUCCESS.getStatus());
     }
 
     @NonAuth

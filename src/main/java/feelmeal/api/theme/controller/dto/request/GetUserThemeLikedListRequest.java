@@ -1,13 +1,13 @@
 package feelmeal.api.theme.controller.dto.request;
 
+import feelmeal.api.theme.service.dto.GetThemeLikedListServiceDto;
+import feelmeal.global.common.entity.Constant;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import feelmeal.api.theme.service.dto.GetThemeLikedListServiceDto;
-import feelmeal.global.common.entity.Constant;
 
 @Getter
 @Setter

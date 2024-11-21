@@ -1,11 +1,11 @@
 package feelmeal.api.member.controller.dto.request;
 
+import feelmeal.api.member.service.dto.PatchMemberInfoServiceDto;
+import feelmeal.global.common.entity.Constant;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import feelmeal.api.member.service.dto.PatchMemberInfoServiceDto;
-import feelmeal.global.common.entity.Constant;
 
 @Getter
 @NoArgsConstructor

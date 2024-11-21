@@ -1,5 +1,13 @@
 package feelmeal.api.member.controller;
 
+import feelmeal.api.member.controller.dto.request.PatchMemberInfoRequest;
+import feelmeal.api.member.controller.dto.response.GetMemberInfoResponse;
+import feelmeal.api.member.controller.dto.response.GetReviewMemberInfoResponse;
+import feelmeal.api.member.service.MemberService;
+import feelmeal.api.member.service.dto.GetMemberServiceDto;
+import feelmeal.api.member.service.dto.GetReviewMemberServiceDto;
+import feelmeal.global.common.exception.ErrorResponse;
+import feelmeal.global.common.jwt.JwtService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -10,14 +18,6 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import feelmeal.api.member.controller.dto.request.PatchMemberInfoRequest;
-import feelmeal.api.member.controller.dto.response.GetMemberInfoResponse;
-import feelmeal.api.member.service.MemberService;
-import feelmeal.api.member.service.dto.GetMemberServiceDto;
-import feelmeal.api.member.controller.dto.response.GetReviewMemberInfoResponse;
-import feelmeal.api.member.service.dto.GetReviewMemberServiceDto;
-import feelmeal.global.common.exception.ErrorResponse;
-import feelmeal.global.common.jwt.JwtService;
 
 import static feelmeal.global.common.exception.ResponseCode.SUCCESS;
 

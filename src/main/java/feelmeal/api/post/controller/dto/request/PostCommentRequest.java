@@ -1,12 +1,12 @@
 package feelmeal.api.post.controller.dto.request;
 
+import feelmeal.api.post.service.dto.PostCommentServiceDto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import feelmeal.api.post.service.dto.PostCommentServiceDto;
 
 @Getter
 @Setter

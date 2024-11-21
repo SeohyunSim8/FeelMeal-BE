@@ -1,8 +1,5 @@
 package feelmeal.global.common.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-
 public class Constant {
     public enum Status {
         ACTIVE, DELETE

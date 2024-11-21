@@ -1,11 +1,11 @@
 package feelmeal.domain.menu.entity;
 
+import feelmeal.domain.member.entity.Member;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import feelmeal.domain.member.entity.Member;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
 

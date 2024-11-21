@@ -1,20 +1,23 @@
 package feelmeal.api.member.service;
 
+import feelmeal.api.member.controller.dto.response.GetMemberInfoResponse;
+import feelmeal.api.member.controller.dto.response.GetReviewMemberInfoResponse;
+import feelmeal.api.member.service.dto.GetMemberServiceDto;
+import feelmeal.api.member.service.dto.GetReviewMemberServiceDto;
+import feelmeal.api.member.service.dto.PatchMemberInfoServiceDto;
+import feelmeal.domain.member.entity.Member;
+import feelmeal.domain.member.repository.MemberRepository;
+import feelmeal.global.common.entity.BaseEntity;
+import feelmeal.global.common.entity.Constant;
+import feelmeal.global.common.exception.CustomException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import feelmeal.api.member.controller.dto.response.GetMemberInfoResponse;
-import feelmeal.api.member.controller.dto.response.GetReviewMemberInfoResponse;
-import feelmeal.api.member.service.dto.GetMemberServiceDto;
-import feelmeal.api.member.service.dto.PatchMemberInfoServiceDto;
-import feelmeal.api.member.service.dto.GetReviewMemberServiceDto;
-import feelmeal.domain.member.entity.Member;
-import feelmeal.domain.member.repository.MemberRepository;
-import feelmeal.global.common.entity.BaseEntity;
-import feelmeal.global.common.exception.CustomException;
 
-import static feelmeal.global.common.exception.ResponseCode.NOT_FOUND_USER;
+import java.util.Optional;
+
+import static feelmeal.global.common.exception.ResponseCode.NOT_FOUND_MEMBER;
 
 @Service
 @RequiredArgsConstructor
@@ -46,8 +49,8 @@ public class MemberServiceImpl implements MemberService {
     }
 
     public Member findEntityById(Long memberId, BaseEntity.Status status) {
-        return memberRepository.findByIdAndStatus(memberId, status)
-                .orElseThrow(() -> new CustomException(NOT_FOUND_USER));
+//        return memberRepository.findByIdAndStatus(memberId, status)
+//                .orElseThrow(() -> new CustomException(NOT_FOUND_USER));
     }
 
     /**
@@ -61,5 +64,19 @@ public class MemberServiceImpl implements MemberService {
         // 후기 작성을 위한 유저 기본 정보를 반환한다
         return GetReviewMemberInfoResponse.of(member.getId(), member.getNickname(), member.getProfileImgUrl(),
                 member.getProficiency(), member.getHorrorPos(), member.getGenre(), member.getAbout());
+    }
+
+    public Member findMemberById(String id, Constant.Status status) {
+        return memberRepository.findByIdAndStatus(id, status)
+                .orElseThrow(() -> new CustomException(NOT_FOUND_MEMBER));
+    }
+
+    public Optional<Member> findOptionalMemberById(String id, Constant.Status status) {
+        return memberRepository.findByIdAndStatus(id, status);
+    }
+
+    public Member findMemberByIdx(Long idx, Constant.Status status) {
+        return memberRepository.findByIdxAndStatus(idx, status)
+                .orElseThrow(() -> new CustomException(NOT_FOUND_MEMBER));
     }
 }

@@ -1,11 +1,11 @@
 package feelmeal.api.auth.controller.dto.request;
 
+import feelmeal.api.auth.service.dto.PostSignUpServiceDto;
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import feelmeal.api.auth.service.dto.PostSignUpServiceDto;
-import feelmeal.global.common.entity.Constant;
 
 @Getter
 @NoArgsConstructor
@@ -29,13 +29,10 @@ public class PostSignUpRequest {
 
     public PostSignUpServiceDto toServiceDto() {
         return PostSignUpServiceDto.builder()
-                .nickname(nickname)
-                .email(email)
+                .id(id)
                 .password(password)
-                .proficiency(proficiency)
-                .horrorPos(horrorPos)
-                .genre(genre)
-                .about(about)
+                .name(name)
+                .address(address)
                 .build();
     }
 }

@@ -1,16 +1,13 @@
 package feelmeal.domain.menu.entity;
 
 import feelmeal.domain.restaurant.entity.Restaurant;
+import feelmeal.global.common.entity.BaseEntity;
+import feelmeal.global.common.entity.Constant;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import feelmeal.global.common.entity.BaseEntity;
-import feelmeal.global.common.entity.Constant;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Getter

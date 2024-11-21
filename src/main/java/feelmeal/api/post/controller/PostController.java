@@ -1,17 +1,5 @@
 package feelmeal.api.post.controller;
 
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
-import lombok.RequiredArgsConstructor;
-import org.springdoc.core.annotations.ParameterObject;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
 import feelmeal.api.post.controller.dto.request.*;
 import feelmeal.api.post.controller.dto.response.GetCommentListResponse;
 import feelmeal.api.post.controller.dto.response.GetHomePostResponse;
@@ -24,6 +12,18 @@ import feelmeal.global.common.entity.Constant;
 import feelmeal.global.common.exception.ErrorResponse;
 import feelmeal.global.common.jwt.JwtService;
 import feelmeal.global.common.response.PageResponse;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
+import lombok.RequiredArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 

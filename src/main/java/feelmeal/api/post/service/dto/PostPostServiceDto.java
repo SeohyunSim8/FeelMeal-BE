@@ -1,10 +1,10 @@
 package feelmeal.api.post.service.dto;
 
+import feelmeal.global.common.entity.Constant;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import feelmeal.global.common.entity.Constant;
 
 @Getter
 @Setter

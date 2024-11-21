@@ -1,19 +1,17 @@
 package feelmeal.api.auth.controller.dto.request;
 
+import feelmeal.api.auth.service.dto.PostLoginServiceDto;
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import feelmeal.api.auth.service.dto.PostLoginServiceDto;
 
 @Getter
 @NoArgsConstructor
 public class PostLoginRequest {
     @NotBlank
-    @Email
-    @Schema(description = "이메일", example = "feelmeal@gmail.com")
-    private String email;
+    @Schema(description = "아이디", example = "abc12")
+    private String id;
 
     @NotBlank
     @Schema(description = "비밀번호", example = "1234")
@@ -21,7 +19,7 @@ public class PostLoginRequest {
 
     public PostLoginServiceDto toServiceDto() {
         return PostLoginServiceDto.builder()
-                .email(email)
+                .id(id)
                 .password(password)
                 .build();
     }

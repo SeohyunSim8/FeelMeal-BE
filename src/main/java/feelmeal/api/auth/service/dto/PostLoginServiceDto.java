@@ -7,13 +7,12 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class PostLoginServiceDto {
-    private String email;
-
+    private String id;
     private String password;
 
     @Builder
-    public PostLoginServiceDto(String email, String password) {
-        this.email = email;
+    public PostLoginServiceDto(String id, String password) {
+        this.id = id;
         this.password = password;
     }
 }

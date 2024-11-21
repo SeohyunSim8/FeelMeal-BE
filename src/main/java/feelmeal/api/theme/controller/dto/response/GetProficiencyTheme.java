@@ -1,11 +1,11 @@
 package feelmeal.api.theme.controller.dto.response;
 
 import com.querydsl.core.annotations.QueryProjection;
+import feelmeal.global.common.entity.Constant;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import feelmeal.global.common.entity.Constant;
 
 @Getter
 @NoArgsConstructor
