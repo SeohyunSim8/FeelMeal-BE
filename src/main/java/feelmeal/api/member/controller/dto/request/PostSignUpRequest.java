@@ -1,6 +1,6 @@
-package feelmeal.api.auth.controller.dto.request;
+package feelmeal.api.member.controller.dto.request;
 
-import feelmeal.api.auth.service.dto.PostSignUpServiceDto;
+import feelmeal.api.member.service.dto.PostSignUpServiceDto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;

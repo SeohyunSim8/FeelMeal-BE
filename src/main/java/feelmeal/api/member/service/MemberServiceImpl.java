@@ -1,69 +1,94 @@
 package feelmeal.api.member.service;
 
-import feelmeal.api.member.controller.dto.response.GetMemberInfoResponse;
-import feelmeal.api.member.controller.dto.response.GetReviewMemberInfoResponse;
-import feelmeal.api.member.service.dto.GetMemberServiceDto;
-import feelmeal.api.member.service.dto.GetReviewMemberServiceDto;
-import feelmeal.api.member.service.dto.PatchMemberInfoServiceDto;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import feelmeal.api.member.controller.dto.response.PostLoginResponse;
+import feelmeal.api.member.controller.dto.response.PostSignUpResponse;
+import feelmeal.api.member.service.dto.PatchAddressServiceDto;
+import feelmeal.api.member.service.dto.PostLoginServiceDto;
+import feelmeal.api.member.service.dto.PostSignUpServiceDto;
+import feelmeal.api.post.service.dto.PatchPostServiceDto;
 import feelmeal.domain.member.entity.Member;
 import feelmeal.domain.member.repository.MemberRepository;
 import feelmeal.global.common.entity.BaseEntity;
 import feelmeal.global.common.entity.Constant;
 import feelmeal.global.common.exception.CustomException;
+import feelmeal.global.common.exception.ResponseCode;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URLEncoder;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.nio.charset.StandardCharsets;
+import java.util.List;
 import java.util.Optional;
 
+import static feelmeal.global.common.exception.ResponseCode.INVALID_PASSWORD;
 import static feelmeal.global.common.exception.ResponseCode.NOT_FOUND_MEMBER;
 
-@Service
-@RequiredArgsConstructor
 @Transactional(readOnly = true)
+@RequiredArgsConstructor
+@Service
 public class MemberServiceImpl implements MemberService {
     private final MemberRepository memberRepository;
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    /**
-     * 내 정보 조회 API
-     */
-    public GetMemberInfoResponse getMemberInfo(GetMemberServiceDto dto) {
-        // 멤버를 조회한다
-        Member member = findEntityById(dto.getMemberId(), BaseEntity.Status.ACTIVE);
-        return GetMemberInfoResponse.of(member.getId(), member.getNickname(), member.getEmail(), member.getProfileImgUrl());
-    }
+    @Value("${geocoder.key}")
+    private String geocoderKey;
 
-    /**
-     * 내 정보 수정 API
-     */
+    // 회원가입 API
     @Transactional
-    public void updateMemberInfo(PatchMemberInfoServiceDto dto) {
-        // 멤버를 조회한다
-        Member member = findEntityById(dto.getMemberId(), BaseEntity.Status.ACTIVE);
+    public PostSignUpResponse signUp(PostSignUpServiceDto dto) {
+        // 이미 존재하는 멤버인지 확인한다
+        Optional<Member> existMember = findOptionalMemberById(dto.getId(), Constant.Status.ACTIVE);
+        if (existMember.isPresent()) throw new CustomException(ResponseCode.EXIST_MEMBER);
 
-        // 비밀번호 암호화 후 멤버 업데이트를 진행한다
-        dto.encryptPassword(bCryptPasswordEncoder.encode(dto.getPassword()));
-        member.updateMemberInfo(dto);
+        // 존재하지 않는 멤버라면 회원가입을 진행한다
+        memberRepository.save(Member.builder()
+                .id(dto.getId())
+                .pw(dto.getPassword())
+                .name(dto.getName())
+                .address(dto.getAddress())
+                .build());
+
+        Member member = findMemberById(dto.getId(), Constant.Status.ACTIVE);
+
+        // 주소를 좌표로 변환하여 저장
+        List<Double> coordinate = geocoder("경기도 성남시 " + dto.getAddress());
+        member.modifyCoordinate(coordinate.get(0), coordinate.get(1));
+
+        // 멤버 고유번호 반환
+        return PostSignUpResponse.of(member.getIdx());
     }
 
-    public Member findEntityById(Long memberId, BaseEntity.Status status) {
-//        return memberRepository.findByIdAndStatus(memberId, status)
-//                .orElseThrow(() -> new CustomException(NOT_FOUND_USER));
+    // 로그인 API
+    public PostLoginResponse login(PostLoginServiceDto dto) {
+        // 회원가입된 멤버인지 확인한다
+        Member member = findMemberById(dto.getId(), Constant.Status.ACTIVE);
+
+        // 비밀번호가 일치하는지 확인한다
+        if(dto.getPassword().matches(member.getPw())) throw new CustomException(INVALID_PASSWORD);
+
+        return PostLoginResponse.of(member.getIdx());
     }
 
-    /**
-     * 리뷰 유저 기본 정보 조회 API
-     * @return GetReviewMemberInfoResponse
-     */
-    public GetReviewMemberInfoResponse getReviewMemberInfo(GetReviewMemberServiceDto dto) {
-        // 멤버를 조회한다
-        Member member = findEntityById(dto.getMemberId(), BaseEntity.Status.ACTIVE);
+    // 주소 수정 API
+    public void modifyAddress(PatchAddressServiceDto dto) {
+        // 회원가입된 멤버인지 확인한다
+        Member member = findMemberByIdx(dto.getIdx(), Constant.Status.ACTIVE);
 
-        // 후기 작성을 위한 유저 기본 정보를 반환한다
-        return GetReviewMemberInfoResponse.of(member.getId(), member.getNickname(), member.getProfileImgUrl(),
-                member.getProficiency(), member.getHorrorPos(), member.getGenre(), member.getAbout());
+        // 주소 수정
+        member.modifyAddress(dto.getAddress());
+
+        // 좌표 수정
+        List<Double> coordinate = geocoder("경기도 성남시 " + dto.getAddress());
+        member.modifyCoordinate(coordinate.get(0), coordinate.get(1));
     }
 
     public Member findMemberById(String id, Constant.Status status) {
@@ -78,5 +103,40 @@ public class MemberServiceImpl implements MemberService {
     public Member findMemberByIdx(Long idx, Constant.Status status) {
         return memberRepository.findByIdxAndStatus(idx, status)
                 .orElseThrow(() -> new CustomException(NOT_FOUND_MEMBER));
+    }
+
+    private List<Double> geocoder(String searchAddr) {
+
+
+        StringBuilder sb = new StringBuilder("https://api.vworld.kr/req/address" +
+                "?service=address" +
+                "&request=getCoord" +
+                "&format=json&crs=epsg:4326" +
+                "&type=ROAD");
+        sb.append("&key=" + geocoderKey);
+        sb.append("&address=" + URLEncoder.encode(searchAddr, StandardCharsets.UTF_8));
+
+        try{
+            // 요청
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(new URI(sb.toString()))
+                    .build();
+
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            ObjectMapper mapper = new ObjectMapper();
+            JsonNode rootNode = mapper.readTree(response.body());
+
+            // JSON 필드 탐색
+            JsonNode pointNode = rootNode.path("response").path("result").path("restaurant");
+
+            // 결과값 반환
+            double x = pointNode.path("x").asDouble();
+            double y = pointNode.path("y").asDouble();
+
+            return List.of(x, y);
+        } catch (IOException | URISyntaxException | InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

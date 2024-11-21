@@ -1,15 +1,15 @@
 package feelmeal.api.member.service;
 
-import feelmeal.api.member.controller.dto.response.GetMemberInfoResponse;
-import feelmeal.api.member.controller.dto.response.GetReviewMemberInfoResponse;
-import feelmeal.api.member.service.dto.GetMemberServiceDto;
-import feelmeal.api.member.service.dto.GetReviewMemberServiceDto;
-import feelmeal.api.member.service.dto.PatchMemberInfoServiceDto;
+import feelmeal.api.member.controller.dto.response.PostLoginResponse;
+import feelmeal.api.member.controller.dto.response.PostSignUpResponse;
+import feelmeal.api.member.service.dto.PatchAddressServiceDto;
+import feelmeal.api.member.service.dto.PostLoginServiceDto;
+import feelmeal.api.member.service.dto.PostSignUpServiceDto;
 
 public interface MemberService {
-    GetMemberInfoResponse getMemberInfo(GetMemberServiceDto dto);
+    PostSignUpResponse signUp(PostSignUpServiceDto dto);
 
-    void updateMemberInfo(PatchMemberInfoServiceDto dto);
+    PostLoginResponse login(PostLoginServiceDto dto);
 
-    GetReviewMemberInfoResponse getReviewMemberInfo(GetReviewMemberServiceDto dto);
+    void modifyAddress(PatchAddressServiceDto dto);
 }

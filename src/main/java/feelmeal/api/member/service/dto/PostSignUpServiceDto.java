@@ -1,4 +1,4 @@
-package feelmeal.api.auth.service.dto;
+package feelmeal.api.member.service.dto;
 
 import lombok.Builder;
 import lombok.Getter;
