@@ -72,7 +72,7 @@ public class QTheme extends EntityPathBase<Menu> {
 
     public QTheme(Class<? extends Menu> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.point = inits.isInitialized("restaurant") ? new feelmeal.domain.restaurant.entity.QPoint(forProperty("restaurant"), inits.get("restaurant")) : null;
+        this.point = inits.isInitialized("d") ? new feelmeal.domain.restaurant.entity.QPoint(forProperty("d"), inits.get("d")) : null;
     }
 
 }

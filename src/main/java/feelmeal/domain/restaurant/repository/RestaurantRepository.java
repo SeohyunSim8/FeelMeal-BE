@@ -11,7 +11,7 @@ public interface RestaurantRepository extends JpaRepository<Restaurant, Long> {
 //        SELECT s
 //        FROM Station s
 //        JOIN Restaurant p ON p.id = :pointId
-//        ORDER BY ST_Distance_Sphere(restaurant(s.longitude, s.latitude), restaurant(p.longitude, p.latitude)) ASC
+//        ORDER BY ST_Distance_Sphere(d(s.longitude, s.latitude), d(p.longitude, p.latitude)) ASC
 //        LIMIT 1
 //    """)
 //    Station findNearestStationByCoordinate(@Param("pointId") Long pointId);

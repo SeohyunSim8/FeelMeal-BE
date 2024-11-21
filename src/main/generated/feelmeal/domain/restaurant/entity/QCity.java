@@ -15,7 +15,7 @@ import com.querydsl.core.types.Path;
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
 public class QCity extends EntityPathBase<City> {
 
-    private static final long serialVersionUID = -1074469698L;
+    private static final long serialVersionUID = 1103441706L;
 
     public static final QCity city = new QCity("city");
 

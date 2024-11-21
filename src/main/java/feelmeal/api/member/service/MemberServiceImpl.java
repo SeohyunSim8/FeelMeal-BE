@@ -2,6 +2,7 @@ package feelmeal.api.member.service;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import feelmeal.api.member.controller.dto.response.GetRestaurantLikedListResponse;
 import feelmeal.api.member.controller.dto.response.PostLoginResponse;
 import feelmeal.api.member.controller.dto.response.PostSignUpResponse;
 import feelmeal.api.member.service.dto.PatchAddressServiceDto;
@@ -10,10 +11,13 @@ import feelmeal.api.member.service.dto.PostSignUpServiceDto;
 import feelmeal.api.post.service.dto.PatchPostServiceDto;
 import feelmeal.domain.member.entity.Member;
 import feelmeal.domain.member.repository.MemberRepository;
+import feelmeal.domain.restaurant.entity.RestaurantLike;
+import feelmeal.domain.restaurant.repository.RestaurantLikeRepository;
 import feelmeal.global.common.entity.BaseEntity;
 import feelmeal.global.common.entity.Constant;
 import feelmeal.global.common.exception.CustomException;
 import feelmeal.global.common.exception.ResponseCode;
+import feelmeal.global.common.response.PageResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -38,6 +42,7 @@ import static feelmeal.global.common.exception.ResponseCode.NOT_FOUND_MEMBER;
 @Service
 public class MemberServiceImpl implements MemberService {
     private final MemberRepository memberRepository;
+    private final RestaurantLikeRepository restaurantLikeRepository;
 
     @Value("${geocoder.key}")
     private String geocoderKey;
@@ -91,13 +96,22 @@ public class MemberServiceImpl implements MemberService {
         member.modifyCoordinate(coordinate.get(0), coordinate.get(1));
     }
 
-    public Member findMemberById(String id, Constant.Status status) {
-        return memberRepository.findByIdAndStatus(id, status)
-                .orElseThrow(() -> new CustomException(NOT_FOUND_MEMBER));
+    // 좋아요 한 식당 목록 조회 API
+    public List<GetRestaurantLikedListResponse> getRestaurantLikedList(PatchAddressServiceDto dto) {
+        // 회원가입된 멤버인지 확인한다
+        Member member = findMemberByIdx(dto.getIdx(), Constant.Status.ACTIVE);
+
+        // 좋아요 한 식당 목록 조회
+        return restaurantLikeRepository.findAllRestaurantLikedByMemberIdx(dto.getIdx());
     }
 
     public Optional<Member> findOptionalMemberById(String id, Constant.Status status) {
         return memberRepository.findByIdAndStatus(id, status);
+    }
+
+    public Member findMemberById(String id, Constant.Status status) {
+        return memberRepository.findByIdAndStatus(id, status)
+                .orElseThrow(() -> new CustomException(NOT_FOUND_MEMBER));
     }
 
     public Member findMemberByIdx(Long idx, Constant.Status status) {
@@ -105,9 +119,9 @@ public class MemberServiceImpl implements MemberService {
                 .orElseThrow(() -> new CustomException(NOT_FOUND_MEMBER));
     }
 
+
+    // 주소를 좌표로 변환
     private List<Double> geocoder(String searchAddr) {
-
-
         StringBuilder sb = new StringBuilder("https://api.vworld.kr/req/address" +
                 "?service=address" +
                 "&request=getCoord" +
@@ -128,7 +142,7 @@ public class MemberServiceImpl implements MemberService {
             JsonNode rootNode = mapper.readTree(response.body());
 
             // JSON 필드 탐색
-            JsonNode pointNode = rootNode.path("response").path("result").path("restaurant");
+            JsonNode pointNode = rootNode.path("response").path("result").path("d");
 
             // 결과값 반환
             double x = pointNode.path("x").asDouble();

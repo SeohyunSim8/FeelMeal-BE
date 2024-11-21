@@ -11,12 +11,12 @@ import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
- * QThemeLike is a Querydsl query type for RestaurantLike
+ * QThemeLike is a Querydsl query type for ThemeLike
  */
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
 public class QThemeLike extends EntityPathBase<ThemeLike> {
 
-    private static final long serialVersionUID = -2025679244L;
+    private static final long serialVersionUID = -1420284673L;
 
     private static final PathInits INITS = PathInits.DIRECT2;
 
@@ -26,7 +26,7 @@ public class QThemeLike extends EntityPathBase<ThemeLike> {
 
     public final feelmeal.domain.member.entity.QMember member;
 
-    public final QTheme theme;
+    public final QMenu menu;
 
     public QThemeLike(String variable) {
         this(ThemeLike.class, forVariable(variable), INITS);
@@ -47,7 +47,7 @@ public class QThemeLike extends EntityPathBase<ThemeLike> {
     public QThemeLike(Class<? extends ThemeLike> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.member = inits.isInitialized("member") ? new feelmeal.domain.member.entity.QMember(forProperty("member")) : null;
-        this.theme = inits.isInitialized("menu") ? new QTheme(forProperty("menu"), inits.get("menu")) : null;
+        this.menu = inits.isInitialized("menu") ? new QMenu(forProperty("menu"), inits.get("menu")) : null;
     }
 
 }

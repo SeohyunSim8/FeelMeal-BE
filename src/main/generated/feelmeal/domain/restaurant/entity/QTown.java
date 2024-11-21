@@ -16,7 +16,7 @@ import com.querydsl.core.types.dsl.PathInits;
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
 public class QTown extends EntityPathBase<Town> {
 
-    private static final long serialVersionUID = -1073957403L;
+    private static final long serialVersionUID = 1103954001L;
 
     private static final PathInits INITS = PathInits.DIRECT2;
 

@@ -16,7 +16,7 @@ import com.querydsl.core.types.dsl.PathInits;
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
 public class QThemeGenre extends EntityPathBase<ThemeGenre> {
 
-    private static final long serialVersionUID = 1623719494L;
+    private static final long serialVersionUID = -1083885285L;
 
     private static final PathInits INITS = PathInits.DIRECT2;
 
@@ -26,9 +26,9 @@ public class QThemeGenre extends EntityPathBase<ThemeGenre> {
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
-    public final EnumPath<feelmeal.global.common.entity.BaseEntity.Status> status = createEnum("status", feelmeal.global.common.entity.BaseEntity.Status.class);
+    public final QMenu menu;
 
-    public final QTheme theme;
+    public final NumberPath<feelmeal.global.common.entity.BaseEntity.Status> status = createNumber("status", feelmeal.global.common.entity.BaseEntity.Status.class);
 
     public QThemeGenre(String variable) {
         this(ThemeGenre.class, forVariable(variable), INITS);
@@ -48,7 +48,7 @@ public class QThemeGenre extends EntityPathBase<ThemeGenre> {
 
     public QThemeGenre(Class<? extends ThemeGenre> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.theme = inits.isInitialized("menu") ? new QTheme(forProperty("menu"), inits.get("menu")) : null;
+        this.menu = inits.isInitialized("menu") ? new QMenu(forProperty("menu"), inits.get("menu")) : null;
     }
 
 }

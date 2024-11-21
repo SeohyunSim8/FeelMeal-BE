@@ -20,7 +20,7 @@ public class QPoint extends EntityPathBase<Restaurant> {
 
     private static final PathInits INITS = PathInits.DIRECT2;
 
-    public static final QPoint point = new QPoint("restaurant");
+    public static final QPoint point = new QPoint("d");
 
     public final feelmeal.global.common.entity.QBaseEntity _super = new feelmeal.global.common.entity.QBaseEntity(this);
 

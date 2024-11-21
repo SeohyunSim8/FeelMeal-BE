@@ -16,7 +16,7 @@ import com.querydsl.core.types.dsl.PathInits;
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
 public class QThemePrice extends EntityPathBase<ThemePrice> {
 
-    private static final long serialVersionUID = 1632413196L;
+    private static final long serialVersionUID = -1075191583L;
 
     private static final PathInits INITS = PathInits.DIRECT2;
 
@@ -26,11 +26,11 @@ public class QThemePrice extends EntityPathBase<ThemePrice> {
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
+    public final QMenu menu;
+
     public final NumberPath<Integer> price = createNumber("price", Integer.class);
 
-    public final EnumPath<feelmeal.global.common.entity.BaseEntity.Status> status = createEnum("status", feelmeal.global.common.entity.BaseEntity.Status.class);
-
-    public final QTheme theme;
+    public final NumberPath<feelmeal.global.common.entity.BaseEntity.Status> status = createNumber("status", feelmeal.global.common.entity.BaseEntity.Status.class);
 
     public QThemePrice(String variable) {
         this(ThemePrice.class, forVariable(variable), INITS);
@@ -50,7 +50,7 @@ public class QThemePrice extends EntityPathBase<ThemePrice> {
 
     public QThemePrice(Class<? extends ThemePrice> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.theme = inits.isInitialized("menu") ? new QTheme(forProperty("menu"), inits.get("menu")) : null;
+        this.menu = inits.isInitialized("menu") ? new QMenu(forProperty("menu"), inits.get("menu")) : null;
     }
 
 }
