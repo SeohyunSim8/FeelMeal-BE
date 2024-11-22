@@ -1,7 +1,12 @@
 package feelmeal.global.common.jwt;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import feelmeal.domain.member.entity.Member;
+import feelmeal.domain.member.repository.MemberRepository;
 import feelmeal.global.common.entity.Constant;
+import feelmeal.global.common.exception.CustomException;
+import feelmeal.global.common.exception.ErrorResponse;
+import feelmeal.global.common.exception.ResponseCode;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -16,12 +21,6 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.web.filter.OncePerRequestFilter;
-import feelmeal.domain.member.entity.Member;
-import feelmeal.domain.member.repository.MemberRepository;
-import feelmeal.global.common.entity.BaseEntity;
-import feelmeal.global.common.exception.CustomException;
-import feelmeal.global.common.exception.ErrorResponse;
-import feelmeal.global.common.exception.ResponseCode;
 
 import java.io.IOException;
 import java.util.Collection;

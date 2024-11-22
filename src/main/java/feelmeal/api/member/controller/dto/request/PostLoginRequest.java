@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class PostLoginRequest {
     @NotBlank
-    @Schema(description = "아이디", example = "abc12")
+    @Schema(description = "아이디", example = "seohyun")
     private String id;
 
     @NotBlank

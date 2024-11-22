@@ -13,4 +13,10 @@ public class GetRestaurantLikedListServiceDto {
     public GetRestaurantLikedListServiceDto(Long idx) {
         this.idx = idx;
     }
+
+    public static GetRestaurantLikedListServiceDto of(Long idx) {
+        return GetRestaurantLikedListServiceDto.builder()
+                .idx(idx)
+                .build();
+    }
 }

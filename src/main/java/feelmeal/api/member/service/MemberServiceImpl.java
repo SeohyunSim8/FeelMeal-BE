@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import feelmeal.api.member.controller.dto.response.GetRestaurantLikedListResponse;
 import feelmeal.api.member.controller.dto.response.PostLoginResponse;
 import feelmeal.api.member.controller.dto.response.PostSignUpResponse;
+import feelmeal.api.member.service.dto.GetRestaurantLikedListServiceDto;
 import feelmeal.api.member.service.dto.PatchAddressServiceDto;
 import feelmeal.api.member.service.dto.PostLoginServiceDto;
 import feelmeal.api.member.service.dto.PostSignUpServiceDto;
@@ -77,7 +78,7 @@ public class MemberServiceImpl implements MemberService {
         Member member = findMemberById(dto.getId(), Constant.Status.ACTIVE);
 
         // 비밀번호가 일치하는지 확인한다
-        if(dto.getPassword().matches(member.getPw())) throw new CustomException(INVALID_PASSWORD);
+        if(!dto.getPassword().equals(member.getPw())) throw new CustomException(INVALID_PASSWORD);
 
         return PostLoginResponse.of(member.getIdx());
     }
@@ -97,7 +98,7 @@ public class MemberServiceImpl implements MemberService {
     }
 
     // 좋아요 한 식당 목록 조회 API
-    public List<GetRestaurantLikedListResponse> getRestaurantLikedList(PatchAddressServiceDto dto) {
+    public List<GetRestaurantLikedListResponse> getRestaurantLikedList(GetRestaurantLikedListServiceDto dto) {
         // 회원가입된 멤버인지 확인한다
         Member member = findMemberByIdx(dto.getIdx(), Constant.Status.ACTIVE);
 
