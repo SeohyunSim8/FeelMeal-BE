@@ -70,6 +70,7 @@ public class MemberController {
     }
 
     // 주소 수정 API
+    @NonAuth
     @Operation(summary = "주소 수정 API", description = "주소를 수정합니다.")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "요청이 성공적으로 처리되었습니다."),
@@ -87,6 +88,7 @@ public class MemberController {
     }
 
     // 좋아요 한 식당 목록 조회 API
+    @NonAuth
     @Operation(summary = "좋아요 한 식당 목록 조회 API", description = "좋아요 한 식당 목록을 조회한다")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "요청이 성공적으로 처리되었습니다."),

@@ -15,6 +15,7 @@ import feelmeal.global.common.entity.Constant;
 import feelmeal.global.common.exception.CustomException;
 import feelmeal.global.common.exception.ResponseCode;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,6 +34,7 @@ import java.util.Optional;
 import static feelmeal.global.common.exception.ResponseCode.INVALID_PASSWORD;
 import static feelmeal.global.common.exception.ResponseCode.NOT_FOUND_MEMBER;
 
+@Slf4j
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 @Service
@@ -56,6 +58,7 @@ public class MemberServiceImpl implements MemberService {
                 .pw(dto.getPassword())
                 .name(dto.getName())
                 .address(dto.getAddress())
+                .status(Constant.Status.ACTIVE)
                 .build());
 
         Member member = findMemberById(dto.getId(), Constant.Status.ACTIVE);
@@ -80,6 +83,7 @@ public class MemberServiceImpl implements MemberService {
     }
 
     // 주소 수정 API
+    @Transactional
     public void modifyAddress(PatchAddressServiceDto dto) {
         // 회원가입된 멤버인지 확인한다
         Member member = findMemberByIdx(dto.getIdx(), Constant.Status.ACTIVE);
@@ -119,10 +123,7 @@ public class MemberServiceImpl implements MemberService {
     // 주소를 좌표로 변환
     private List<Double> geocoder(String searchAddr) {
         StringBuilder sb = new StringBuilder("https://api.vworld.kr/req/address" +
-                "?service=address" +
-                "&request=getCoord" +
-                "&format=json&crs=epsg:4326" +
-                "&type=ROAD");
+                "?service=address&request=getcoord&format=json&crs=epsg:4326&type=parcel");
         sb.append("&key=" + geocoderKey);
         sb.append("&address=" + URLEncoder.encode(searchAddr, StandardCharsets.UTF_8));
 
@@ -138,7 +139,7 @@ public class MemberServiceImpl implements MemberService {
             JsonNode rootNode = mapper.readTree(response.body());
 
             // JSON 필드 탐색
-            JsonNode pointNode = rootNode.path("response").path("result").path("d");
+            JsonNode pointNode = rootNode.path("response").path("result").path("point");
 
             // 결과값 반환
             double x = pointNode.path("x").asDouble();

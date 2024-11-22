@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class PostSignUpRequest {
     @NotBlank
-    @Schema(description = "아이디", example = "abc12")
+    @Schema(description = "아이디", example = "seohyun")
     private String id;
 
     @Pattern(regexp = "^[a-zA-Z0-9]+$")

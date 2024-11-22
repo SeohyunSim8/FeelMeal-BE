@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "restaurant")
+@Table(name = "member")
 public class Member extends BaseEntity {
     @Column(name = "id", nullable = false, length = 30)
     private String id;
@@ -37,13 +37,11 @@ public class Member extends BaseEntity {
 
 
     @Builder
-    public Member(String id, String pw, String name, String address, Double longitude, Double latitude, Constant.Status status) {
+    public Member(String id, String pw, String name, String address, Constant.Status status) {
         this.id = id;
         this.pw = pw;
         this.name = name;
         this.address = address;
-        this.longitude = longitude;
-        this.latitude = latitude;
         this.status = status;
     }
 

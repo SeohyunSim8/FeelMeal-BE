@@ -19,23 +19,8 @@ spring:
           max-request-size: 100MB
 
 security:
-  post-ignore-paths:
-    - /sign-up/**
-    - /login
-    - /upload-excel
-  patch-ignore-paths:
-    - /address-to-coordinate
-    - /coordinate-to-station
-  get-ignore-paths:
-    - /themes/**/review-info
-    - /themes/home/**
-    - /themes/stations
-    - /themes/overall-reviews
-    - /themes/genres
-    - /posts/**
-    - /themes-reviews/**
-  ignore-paths:
-    - /api/swagger-ui/**
-    - /api/swagger-ui.html/**
-    - /api/swagger-ui/index.html/**
-    - /api/v3/api-docs/**
+  ignorePaths:
+    - "/**"
+  postIgnorePaths: []
+  patchIgnorePaths: []
+  getIgnorePaths: []
