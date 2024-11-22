@@ -17,6 +17,10 @@ public enum ResponseCode {
     INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "내부 서버 오류입니다."),
 
     // AUTH
+    EMPTY_JWT(HttpStatus.BAD_REQUEST, "JWT를 입력해주세요."),
+    INVALID_JWT(HttpStatus.UNAUTHORIZED, "유효하지 않은 JWT입니다."),
+
+    // MEMBER
     EXIST_MEMBER(HttpStatus.CONFLICT, "이미 가입된 유저입니다."),
     NOT_FOUND_MEMBER(HttpStatus.NOT_FOUND, "존재하지 않는 유저입니다."),
     INVALID_PASSWORD(HttpStatus.BAD_REQUEST, "비밀번호가 일치하지 않습니다."),
