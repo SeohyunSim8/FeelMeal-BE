@@ -1,4 +1,4 @@
-package feelmeal.api.member.controller.dto.response;
+package feelmeal.api.restaurant.controller.dto.response;
 
 import com.querydsl.core.annotations.QueryProjection;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -8,7 +8,10 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class GetRestaurantLikedListResponse {
+public class GetRestaurantListResponse {
+    @Schema(description = "식당 고유번호", example = "1")
+    private Long restaurantIdx;
+
     @Schema(description = "이름", example = "참진해물짜장짬뽕")
     private String name;
 
@@ -17,13 +20,15 @@ public class GetRestaurantLikedListResponse {
 
     @QueryProjection
     @Builder
-    public GetRestaurantLikedListResponse(String name, String address) {
+    public GetRestaurantListResponse(Long restaurantIdx, String name, String address) {
+        this.restaurantIdx = restaurantIdx;
         this.name = name;
         this.address = address;
     }
 
-    public static GetRestaurantLikedListResponse of(String name, String address) {
-        return GetRestaurantLikedListResponse.builder()
+    public static GetRestaurantListResponse of(Long restaurantIdx, String name, String address) {
+        return GetRestaurantListResponse.builder()
+                .restaurantIdx(restaurantIdx)
                 .name(name)
                 .address(address)
                 .build();

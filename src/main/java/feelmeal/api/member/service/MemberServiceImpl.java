@@ -78,7 +78,7 @@ public class MemberServiceImpl implements MemberService {
         Member member = findMemberById(dto.getId(), Constant.Status.ACTIVE);
 
         // 비밀번호가 일치하는지 확인한다
-        if(!dto.getPassword().equals(member.getPw())) throw new CustomException(INVALID_PASSWORD);
+        if(!dto.getPassword().equals(member.getPw())) throw new CustomException(ResponseCode.INVALID_PASSWORD);
 
         return PostLoginResponse.of(member.getIdx());
     }
@@ -112,12 +112,12 @@ public class MemberServiceImpl implements MemberService {
 
     public Member findMemberById(String id, Constant.Status status) {
         return memberRepository.findByIdAndStatus(id, status)
-                .orElseThrow(() -> new CustomException(NOT_FOUND_MEMBER));
+                .orElseThrow(() -> new CustomException(ResponseCode.NOT_FOUND_MEMBER));
     }
 
     public Member findMemberByIdx(Long idx, Constant.Status status) {
         return memberRepository.findByIdxAndStatus(idx, status)
-                .orElseThrow(() -> new CustomException(NOT_FOUND_MEMBER));
+                .orElseThrow(() -> new CustomException(ResponseCode.NOT_FOUND_MEMBER));
     }
 
 

@@ -1,19 +1,29 @@
 package feelmeal.domain.restaurant.repository;
 
+import feelmeal.api.restaurant.controller.dto.response.GetRestaurantListResponse;
+import feelmeal.domain.member.entity.Member;
 import feelmeal.domain.restaurant.entity.Restaurant;
+import feelmeal.global.common.entity.Constant;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import javax.swing.text.html.Option;
+import java.util.List;
+import java.util.Optional;
+
 @Repository
-public interface RestaurantRepository extends JpaRepository<Restaurant, Long> {
-//    // 방탈출 카페 지점과 가장 가까운 지하철 역 조회
-//    @Query("""
-//        SELECT s
-//        FROM Station s
-//        JOIN Restaurant p ON p.id = :pointId
-//        ORDER BY ST_Distance_Sphere(d(s.longitude, s.latitude), d(p.longitude, p.latitude)) ASC
-//        LIMIT 1
-//    """)
-//    Station findNearestStationByCoordinate(@Param("pointId") Long pointId);
+public interface RestaurantRepository extends JpaRepository<Restaurant, Long>, RestaurantRepositoryCustom {
+    // 식당 목록 조회 (멤버와의 가까운순)
+    @Query("""
+        SELECT new feelmeal.api.restaurant.controller.dto.response.GetRestaurantListResponse(r.idx, r.name, r.address) 
+        FROM Restaurant r
+        JOIN Member m ON m.idx = :memberIdx
+        ORDER BY ST_Distance_Sphere(point(r.longitude, r.latitude), point(m.longitude, m.latitude)) ASC
+    """)
+    List<GetRestaurantListResponse> findAllByDistance(@Param("memberIdx") Long memberIdx);
+
+    Optional<Restaurant> findByIdxAndStatus(Long idx, Constant.Status status);
 }
 

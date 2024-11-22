@@ -25,10 +25,12 @@ public enum ResponseCode {
     NOT_FOUND_MEMBER(HttpStatus.NOT_FOUND, "존재하지 않는 유저입니다."),
     INVALID_PASSWORD(HttpStatus.BAD_REQUEST, "비밀번호가 일치하지 않습니다."),
 
-    //THEME
-    NOT_FOUND_THEME(HttpStatus.NOT_FOUND, "존재하지 않는 테마입니다."),
-    INVALID_THEME_LIKE(HttpStatus.BAD_REQUEST, "좋아요를 누르지 않은 테마입니다."),
-    EXIST_THEME_LIKE(HttpStatus.CONFLICT, "이미 좋아요를 한 테마입니다."),
+    //RESTAURANT
+    NOT_FOUND_RESTAURANT(HttpStatus.NOT_FOUND, "존재하지 않는 식당입니다."),
+    INVALID_RESTAURANT_LIKE(HttpStatus.BAD_REQUEST, "좋아요를 누르지 않은 식당입니다."),
+    EXIST_RESTAURANT_LIKE(HttpStatus.CONFLICT, "이미 좋아요를 한 식당입니다."),
+
+
 
 
     // MEM
