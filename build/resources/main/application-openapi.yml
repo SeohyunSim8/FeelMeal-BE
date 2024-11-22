@@ -5,7 +5,7 @@ spring:
             on-profile: local
 openapi:
     service:
-        title: roominus-documentation
+        title: feelmeal-documentation
         version: 1.0.0
         url: http://localhost:8090
 
@@ -16,46 +16,3 @@ springdoc:
         path: /api/swagger-ui.html
         operations-sorter: method
         doc-expansion: none
-
----
-# application-test.yml
-spring:
-    config:
-        activate:
-            on-profile: test
-openapi:
-    service:
-        title: roominus-documentation
-        version: 1.0.0
-        url: http://localhost:8090
-
-springdoc:
-    api-docs:
-        path: /api/v3/api-docs
-    swagger-ui:
-        path: /api/swagger-ui.html
-        operations-sorter: method
-        doc-expansion: none
-
----
-# application-dev.yml
-spring:
-    config:
-        activate:
-            on-profile: dev
-openapi:
-    service:
-        title: roominus-documentation
-        version: 1.0.0
-        url: https://roominus-server.store
-
-springdoc:
-    api-docs:
-        path: /api/v3/api-docs
-    swagger-ui:
-        path: /api/swagger-ui.html
-        operations-sorter: method
-        doc-expansion: none
-
-geocoder:
-    key: ${GEOCODER_KEY}

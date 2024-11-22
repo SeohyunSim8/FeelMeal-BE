@@ -8,7 +8,6 @@ import feelmeal.api.member.controller.dto.response.GetRestaurantLikedListRespons
 import feelmeal.api.member.controller.dto.response.PostLoginResponse;
 import feelmeal.api.member.controller.dto.response.PostSignUpResponse;
 import feelmeal.api.member.service.MemberService;
-import feelmeal.api.post.controller.dto.request.PatchPostRequest;
 import feelmeal.global.annotation.NonAuth;
 import feelmeal.global.common.exception.ErrorResponse;
 import io.swagger.v3.oas.annotations.Operation;
@@ -27,10 +26,10 @@ import java.util.List;
 
 import static feelmeal.global.common.exception.ResponseCode.SUCCESS;
 
-@Tag(name = "[Auth]", description = "회원가입 및 로그인 API")
+@Tag(name = "[Member]", description = "멤버 관련 API")
 @Slf4j
 @RequiredArgsConstructor
-@RestController("/auth")
+@RestController("/member")
 public class MemberController {
     private final MemberService memberService;
 

@@ -50,7 +50,7 @@ public class QRestaurantLike extends EntityPathBase<RestaurantLike> {
     public QRestaurantLike(Class<? extends RestaurantLike> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.member = inits.isInitialized("member") ? new feelmeal.domain.member.entity.QMember(forProperty("member")) : null;
-        this.restaurant = inits.isInitialized("d") ? new QRestaurant(forProperty("d")) : null;
+        this.restaurant = inits.isInitialized("restaurant") ? new QRestaurant(forProperty("restaurant")) : null;
     }
 
 }

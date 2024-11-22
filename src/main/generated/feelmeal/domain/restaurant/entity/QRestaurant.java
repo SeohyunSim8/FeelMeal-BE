@@ -17,7 +17,7 @@ public class QRestaurant extends EntityPathBase<Restaurant> {
 
     private static final long serialVersionUID = 1202935228L;
 
-    public static final QRestaurant restaurant = new QRestaurant("d");
+    public static final QRestaurant restaurant = new QRestaurant("restaurant");
 
     public final feelmeal.global.common.entity.QBaseEntity _super = new feelmeal.global.common.entity.QBaseEntity(this);
 

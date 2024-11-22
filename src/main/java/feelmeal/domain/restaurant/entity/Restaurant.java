@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "d")
+@Table(name = "restaurant")
 public class Restaurant extends BaseEntity {
     @Column(name = "name", nullable = false, length = 30)
     private String name;

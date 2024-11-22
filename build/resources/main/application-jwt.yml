@@ -6,21 +6,3 @@ jwt:
     access_exp: 3600000  # 한시간
     refresh_exp: 604800000  # 일주일
     secret: "roominusroominusroominusroominusroominusroominusroominusroominusroominusroominus"
----
-spring:
-    config:
-        activate:
-            on-profile: test
-jwt:
-    access_exp: 3600000  # 한시간
-    refresh_exp: 604800000  # 일주일
-    secret: "roominusroominusroominusroominusroominusroominusroominusroominusroominusroominus"
----
-spring:
-    config:
-        activate:
-            on-profile: dev
-jwt:
-    access_exp: 604800000  # 일주일
-    refresh_exp: 1209600000  # 이주일
-    secret: ${JWT_SECRET}

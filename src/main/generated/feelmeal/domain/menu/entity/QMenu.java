@@ -51,7 +51,7 @@ public class QMenu extends EntityPathBase<Menu> {
 
     public QMenu(Class<? extends Menu> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.restaurant = inits.isInitialized("d") ? new feelmeal.domain.restaurant.entity.QRestaurant(forProperty("d")) : null;
+        this.restaurant = inits.isInitialized("restaurant") ? new feelmeal.domain.restaurant.entity.QRestaurant(forProperty("restaurant")) : null;
     }
 
 }

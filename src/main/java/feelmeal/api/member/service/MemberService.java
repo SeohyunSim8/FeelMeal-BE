@@ -6,7 +6,6 @@ import feelmeal.api.member.controller.dto.response.PostSignUpResponse;
 import feelmeal.api.member.service.dto.PatchAddressServiceDto;
 import feelmeal.api.member.service.dto.PostLoginServiceDto;
 import feelmeal.api.member.service.dto.PostSignUpServiceDto;
-import feelmeal.global.common.response.PageResponse;
 
 import java.util.List;
 
