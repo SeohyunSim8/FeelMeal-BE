@@ -20,9 +20,11 @@ public interface RestaurantRepository extends JpaRepository<Restaurant, Long>, R
         SELECT new feelmeal.api.restaurant.controller.dto.response.GetRestaurantListResponse(r.idx, r.name, r.address) 
         FROM Restaurant r
         JOIN Member m ON m.idx = :memberIdx
+        WHERE r.foodCategory = :foodCategory
         ORDER BY ST_Distance_Sphere(point(r.longitude, r.latitude), point(m.longitude, m.latitude)) ASC
     """)
-    List<GetRestaurantListResponse> findAllByDistance(@Param("memberIdx") Long memberIdx);
+    List<GetRestaurantListResponse> findAllByFoodCategoryAndDistance(@Param("memberIdx") Long memberIdx,
+                                                                     @Param("foodCategory") Constant.FoodCategory foodCategory);
 
     Optional<Restaurant> findByIdxAndStatus(Long idx, Constant.Status status);
 }

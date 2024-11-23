@@ -46,9 +46,10 @@ public class RestaurantController {
     })
     @GetMapping("/list")
     public ResponseEntity<List<GetRestaurantListResponse>> getRestaurantList(
-            @ParameterObject @Schema(description = "멤버 고유번호", example = "1") Long memberIdx
+            @ParameterObject @Schema(description = "멤버 고유번호", example = "1") Long memberIdx,
+            @ParameterObject @Schema(description = "음식 종류", example = "KOREAN") Constant.FoodCategory foodCategory
     ) {
-        List<GetRestaurantListResponse> response = restaurantService.getRestaurantList(GetRestaurantListServiceDto.of(memberIdx));
+        List<GetRestaurantListResponse> response = restaurantService.getRestaurantList(GetRestaurantListServiceDto.of(memberIdx, foodCategory));
         return new ResponseEntity<>(response, SUCCESS.getStatus());
     }
 

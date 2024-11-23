@@ -5,7 +5,7 @@ public class Constant {
         ACTIVE, DELETE
     }
 
-    public enum Category {
+    public enum FoodCategory {
         KOREAN, JAPANESE, CHINESE, AMERICAN
     }
 

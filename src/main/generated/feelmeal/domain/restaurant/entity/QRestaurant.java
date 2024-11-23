@@ -25,7 +25,7 @@ public class QRestaurant extends EntityPathBase<Restaurant> {
 
     public final StringPath address = createString("address");
 
-    public final EnumPath<feelmeal.global.common.entity.Constant.Category> category = createEnum("category", feelmeal.global.common.entity.Constant.Category.class);
+    public final EnumPath<feelmeal.global.common.entity.Constant.FoodCategory> foodCategory = createEnum("foodCategory", feelmeal.global.common.entity.Constant.FoodCategory.class);
 
     //inherited
     public final NumberPath<Long> idx = _super.idx;

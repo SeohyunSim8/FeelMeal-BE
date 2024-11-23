@@ -30,7 +30,6 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @Service
 public class RestaurantServiceImpl implements RestaurantService {
-    private final MemberRepository memberRepository;
     private final RestaurantRepository restaurantRepository;
     private final MenuRepository menuRepository;
     private final RestaurantLikeRepository restaurantLikeRepository;
@@ -43,7 +42,7 @@ public class RestaurantServiceImpl implements RestaurantService {
         Member member = memberService.findMemberByIdx(dto.getMemberIdx(), Constant.Status.ACTIVE);
 
         // 식당 목록 조회 (멤버와 가까운순)
-        return restaurantRepository.findAllByDistance(member.getIdx());
+        return restaurantRepository.findAllByFoodCategoryAndDistance(member.getIdx(), dto.getFoodCategory());
     }
 
     // 식당 정보 조회 API

@@ -29,8 +29,8 @@ public class Restaurant extends BaseEntity {
     private String about;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "category", nullable = false)
-    private Constant.Category category;
+    @Column(name = "foodCategory", nullable = false)
+    private Constant.FoodCategory foodCategory;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
@@ -38,21 +38,21 @@ public class Restaurant extends BaseEntity {
 
     @Builder
     public Restaurant(String name, String address, Double longitude, Double latitude, String about,
-                      Constant.Category category, Constant.Status status) {
+                      Constant.FoodCategory foodCategory, Constant.Status status) {
         this.name = name;
         this.address = address;
         this.longitude = longitude;
         this.latitude = latitude;
         this.about = about;
-        this.category = category;
+        this.foodCategory = foodCategory;
         this.status = status;
     }
 
-    public static Restaurant of(String name, String address, Constant.Category category, Constant.Status status) {
+    public static Restaurant of(String name, String address, Constant.FoodCategory foodCategory, Constant.Status status) {
         return feelmeal.domain.restaurant.entity.Restaurant.builder()
                 .name(name)
                 .address(address)
-                .category(category)
+                .foodCategory(foodCategory)
                 .status(status)
                 .build();
     }
