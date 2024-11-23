@@ -9,6 +9,9 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class GetRestaurantLikedListResponse {
+    @Schema(description = "고유번호", example = "1")
+    private Long idx;
+
     @Schema(description = "이름", example = "참진해물짜장짬뽕")
     private String name;
 
@@ -17,13 +20,15 @@ public class GetRestaurantLikedListResponse {
 
     @QueryProjection
     @Builder
-    public GetRestaurantLikedListResponse(String name, String address) {
+    public GetRestaurantLikedListResponse(Long idx, String name, String address) {
+        this.idx = idx;
         this.name = name;
         this.address = address;
     }
 
-    public static GetRestaurantLikedListResponse of(String name, String address) {
+    public static GetRestaurantLikedListResponse of(Long idx, String name, String address) {
         return GetRestaurantLikedListResponse.builder()
+                .idx(idx)
                 .name(name)
                 .address(address)
                 .build();

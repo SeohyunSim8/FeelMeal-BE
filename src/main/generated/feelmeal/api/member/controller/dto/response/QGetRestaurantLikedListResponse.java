@@ -13,8 +13,8 @@ public class QGetRestaurantLikedListResponse extends ConstructorExpression<GetRe
 
     private static final long serialVersionUID = -238494176L;
 
-    public QGetRestaurantLikedListResponse(com.querydsl.core.types.Expression<String> name, com.querydsl.core.types.Expression<String> address) {
-        super(GetRestaurantLikedListResponse.class, new Class<?>[]{String.class, String.class}, name, address);
+    public QGetRestaurantLikedListResponse(com.querydsl.core.types.Expression<Long> idx, com.querydsl.core.types.Expression<String> name, com.querydsl.core.types.Expression<String> address) {
+        super(GetRestaurantLikedListResponse.class, new Class<?>[]{long.class, String.class, String.class}, idx, name, address);
     }
 
 }

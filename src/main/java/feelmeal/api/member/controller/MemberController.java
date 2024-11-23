@@ -16,6 +16,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -64,9 +65,15 @@ public class MemberController {
     })
     @PostMapping("/login")
     public ResponseEntity<PostLoginResponse> login(
-            @Valid @RequestBody PostLoginRequest request
+            @Valid @RequestBody PostLoginRequest request,
+            HttpSession session
     ) {
         PostLoginResponse response = memberService.login(request.toServiceDto());
+
+        // 세션 데이터 저장
+        session.setAttribute("memberIdx", response.getMemberIdx());
+        log.info("세션에 저장된 사용자 정보: memberIdx={}", session.getAttribute("memberIdx"));
+
         return new ResponseEntity<>(response, SUCCESS.getStatus());
     }
 

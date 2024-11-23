@@ -21,6 +21,7 @@ public class RestaurantLikeRepositoryCustomImpl implements RestaurantLikeReposit
 
         JPAQuery<GetRestaurantLikedListResponse> response =  jpaQueryFactory
                 .select(new QGetRestaurantLikedListResponse(
+                        qRestaurant.idx,
                         qRestaurant.name,
                         qRestaurant.address
                 ))
