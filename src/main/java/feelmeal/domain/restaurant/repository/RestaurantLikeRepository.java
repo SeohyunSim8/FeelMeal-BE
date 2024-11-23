@@ -8,7 +8,7 @@ import java.util.Optional;
 
 @Repository
 public interface RestaurantLikeRepository extends JpaRepository<RestaurantLike, Long>, RestaurantLikeRepositoryCustom {
-    Optional<RestaurantLike> findByRestaurantIdxAndMemberIdx(Long memberId, Long restaurantId);
+    Optional<RestaurantLike> findByMemberIdxAndRestaurantIdx(Long memberId, Long restaurantId);
 
 }
 

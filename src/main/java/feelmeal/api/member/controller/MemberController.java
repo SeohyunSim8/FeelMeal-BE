@@ -29,7 +29,8 @@ import static feelmeal.global.common.exception.ResponseCode.SUCCESS;
 @Tag(name = "[Member]", description = "멤버 관련 API")
 @Slf4j
 @RequiredArgsConstructor
-@RestController("/member")
+@RestController
+@RequestMapping("/member")
 public class MemberController {
     private final MemberService memberService;
 

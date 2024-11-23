@@ -31,7 +31,8 @@ import static feelmeal.global.common.exception.ResponseCode.SUCCESS;
 @Tag(name = "[Restaurant]", description = "식당 관련 API")
 @Slf4j
 @RequiredArgsConstructor
-@RestController("/restaurants")
+@RestController
+@RequestMapping("/restaurants")
 public class RestaurantController {
     private final RestaurantService restaurantService;
 

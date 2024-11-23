@@ -77,7 +77,7 @@ public class RestaurantServiceImpl implements RestaurantService {
         Restaurant restaurant = findRestaurantByIdx(dto.getRestaurantIdx(), Constant.Status.ACTIVE);
 
         // restaurantLike 조회 후, 있다면 예외 발생, 없다면 새로 생성
-        if(restaurantLikeRepository.findByRestaurantIdxAndMemberIdx(member.getIdx(), restaurant.getIdx()).isPresent())
+        if(restaurantLikeRepository.findByMemberIdxAndRestaurantIdx(member.getIdx(), restaurant.getIdx()).isPresent())
             throw new CustomException(ResponseCode.EXIST_RESTAURANT_LIKE);
 
         restaurantLikeRepository.save(RestaurantLike.of(member, restaurant));
@@ -91,7 +91,7 @@ public class RestaurantServiceImpl implements RestaurantService {
 
         // 존재하는 식당인지 확인하고, 식당 좋아요가 있는지 확인한다
         Restaurant restaurant = findRestaurantByIdx(dto.getRestaurantIdx(), Constant.Status.ACTIVE);
-        Optional<RestaurantLike> restaurantLike = restaurantLikeRepository.findByRestaurantIdxAndMemberIdx(member.getIdx(), restaurant.getIdx());
+        Optional<RestaurantLike> restaurantLike = restaurantLikeRepository.findByMemberIdxAndRestaurantIdx(member.getIdx(), restaurant.getIdx());
 
         // 좋아요를 눌렀다면 좋아요를 삭제하고, 누르지 않았다면 예외 처리를 진행한다
         if(restaurantLike.isPresent()) restaurantLikeRepository.delete(restaurantLike.get());

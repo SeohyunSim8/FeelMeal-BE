@@ -54,7 +54,7 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("http://localhost:8090", "https://roominus-server.store", "http://localhost:5173", "https://room-in-us.netlify.app"));  // 특정 출처만 허용
+        configuration.setAllowedOrigins(List.of("http://localhost:8090", "http://localhost:5173"));  // 특정 출처만 허용
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("*"));
 
